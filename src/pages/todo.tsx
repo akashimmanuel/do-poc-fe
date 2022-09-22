@@ -17,7 +17,7 @@ export const Todo: React.FC = () => {
     axios.post("http://localhost:3000/todo/add", data).then((res) => {
       const newData = [...todos, res.data];
 
-      setTodos(newData);
+      setTodos(newData as any);
       setNewTodos({ ...newtodos, name: "" });
     });
   };
@@ -26,7 +26,7 @@ export const Todo: React.FC = () => {
     const data = { id };
 
     axios.post("http://localhost:3000/todo/delete", data).then((res) => {
-      const filterTodo = todos?.filter((todo) => todo.id !== id);
+      const filterTodo = todos?.filter((todo) => (todo as any).id !== id);
       setTodos(filterTodo);
     });
   };
@@ -62,7 +62,7 @@ export const Todo: React.FC = () => {
       {todos.length === 0 && <h1>No Data </h1>}
       {todos &&
         todos?.map((todo) => (
-          <div key={todo.id} className="m-3">
+          <div key={(todo as any).id} className="m-3">
             <Card data={todo} handler={deleteHandler} />
           </div>
         ))}
