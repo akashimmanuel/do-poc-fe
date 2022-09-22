@@ -8,13 +8,13 @@ export const Todo: React.FC = () => {
 
   const getTodoList = () => {
     axios
-      .get("http://localhost:3000/todo/get")
+      .get(`${import.meta.env.VITE_HOST}/todo/get`)
       .then((res) => setTodos(res.data));
   };
 
   const addTodo = () => {
     const data = newtodos;
-    axios.post("http://localhost:3000/todo/add", data).then((res) => {
+    axios.post(`${import.meta.env.VITE_HOST}/todo/add`, data).then((res) => {
       const newData = [...todos, res.data];
 
       setTodos(newData as any);
@@ -25,7 +25,7 @@ export const Todo: React.FC = () => {
   const deleteHandler = (id: any) => {
     const data = { id };
 
-    axios.post("http://localhost:3000/todo/delete", data).then((res) => {
+    axios.post(`${import.meta.env.VITE_HOST}/todo/delete`, data).then((res) => {
       const filterTodo = todos?.filter((todo) => (todo as any).id !== id);
       setTodos(filterTodo);
     });
@@ -37,7 +37,7 @@ export const Todo: React.FC = () => {
 
   return (
     <div>
-      <>Hey!! this is Stage.</>
+      <>Hey Its the stage</>
       <div className="container">
         <div>
           <div className="mb-4">
