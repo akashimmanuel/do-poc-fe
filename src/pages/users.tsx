@@ -16,6 +16,7 @@ export const Users = () => {
 
   return (
     <div>
+      <>Hey!! this is Stage.</>
       {user.length === 0 && <h1>Loading...</h1>}
       {user?.map((user) => (
         <p>{(user as any).name}</p>
