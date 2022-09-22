@@ -15,19 +15,20 @@ export const Todo: React.FC = () => {
   const addTodo = () => {
     const data = newtodos;
     axios.post("http://localhost:3000/todo/add", data).then((res) => {
-      setTodos(res.data);
+      const newData = [...todos, res.data];
+
+      setTodos(newData);
       setNewTodos({ ...newtodos, name: "" });
     });
   };
 
   const deleteHandler = (id: any) => {
-    console.log(id);
-
     const data = { id };
 
-    axios
-      .post("http://localhost:3000/todo/delete", data)
-      .then((res) => console.log(res.data));
+    axios.post("http://localhost:3000/todo/delete", data).then((res) => {
+      const filterTodo = todos?.filter((todo) => todo.id !== id);
+      setTodos(filterTodo);
+    });
   };
 
   useEffect(() => {
@@ -43,6 +44,7 @@ export const Todo: React.FC = () => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="todos"
+              value={newtodos.name}
               onChange={(e) =>
                 setNewTodos({ ...newtodos, name: e.target.value })
               }
@@ -57,7 +59,7 @@ export const Todo: React.FC = () => {
         </div>
       </div>
 
-      {todos.length === 0 && <h1>Loading..</h1>}
+      {todos.length === 0 && <h1>No Data </h1>}
       {todos &&
         todos?.map((todo) => (
           <div key={todo.id} className="m-3">
